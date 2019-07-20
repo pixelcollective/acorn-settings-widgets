@@ -1,0 +1,37 @@
+{
+ "name": "tiny-pixel/acorn-settings-widgets",
+ "type": "package",
+ "license": "MIT",
+ "description": "WordPress Widgets configuration management for Acorn projects",
+ "authors": [
+  {
+   "name": "Kelly Mears",
+   "email": "kelly@tinypixel.dev"
+  }
+ ],
+ "keywords": [
+  "wordpress",
+  "acorn",
+  "sage",
+  "wordpress",
+  "widgets"
+ ],
+ "support": {
+  "issues": "https://github.com/pixelcollective/acorn-settings-widgets/issues"
+ },
+ "autoload": {
+  "psr-4": {
+   "TinyPixel\\Settings\\": "src/"
+  }
+ },
+ "require": {
+  "php": ">=7.3"
+ },
+ "extra": {
+  "acorn": {
+   "providers": [
+    "TinyPixel\\Settings\\Providers\\WidgetsServiceProvider"
+   ]
+  }
+ }
+}
