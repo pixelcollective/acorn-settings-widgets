@@ -4,6 +4,7 @@ namespace TinyPixel\Settings;
 
 // WordPress
 use function \add_action;
+use function \register_widget;
 use function \unregister_widget;
 
 // Illuminate framework
@@ -67,16 +68,16 @@ class Widgets
     }
 
     /**
-     * Processes enabled widgets from configuration file
+     * Processes widgets which should be removed from the configuration file
      *
      * @param \Illuminate\Support\Collection  $defaultWidgets
      * @return \Illuminate\Support\Collection $defaultWidgets
      */
     public function processWidgets(Collection $defaultWidgets)
     {
-        $defaultWidgets->each(function ($widgetStatus, $widgetName) use ($defaultWidgets) {
+        $defaultWidgets = $defaultWidgets->each(function ($widgetStatus, $widgetName) use ($defaultWidgets) {
             if ($widgetStatus == false) {
-                $defaultWidgets->pop($widgetName);
+                return $defaultWidgets->pluck($widgetName);
             }
         });
 
@@ -84,19 +85,19 @@ class Widgets
     }
 
     /**
-     * Removes widgets which are slated for removal
+     * Removes widgets which have been marked for removal
      *
      * @return void
      */
     public function removeWidgets()
     {
-        $this->disabledWidgets->each(function ($widget) {
+        $this->disabledWidgets->each(function ($enabled, $widget) {
             unregister_widget($this->widgetIds[$widget]);
         });
     }
 
     /**
-     * Adds additional widgets
+     * Adds additional widgets as defined in configuration
      *
      * @return void
      */
