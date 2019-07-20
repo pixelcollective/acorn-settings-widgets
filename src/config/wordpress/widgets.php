@@ -31,4 +31,17 @@ return [
         'tag_cloud'       => true,
         'menu'            => true,
     ],
+
+    /*
+    |----------------------------------------------------------------------
+    | Additional widgets
+    |----------------------------------------------------------------------
+    |
+    | Add additional widgets
+    |
+    */
+
+    'additional_widgets' => [
+        // App\MyWidgetClass::class,
+    ],
 ];
