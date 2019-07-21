@@ -41,6 +41,7 @@ class Widgets
     public function __construct(Application $app)
     {
         $this->app = $app;
+
         return $this;
     }
 
