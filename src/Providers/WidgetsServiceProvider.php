@@ -40,10 +40,8 @@ class WidgetsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $widgetsConfig =  __DIR__ . '/../config/wordpress/widgets.php';
-
         $this->publishes([
-            $widgetsConfig => config_path('wordpress/widgets.php'),
+            __DIR__ . '/../config/wordpress/widgets.php' => config_path('wordpress/widgets.php'),
         ]);
 
         $this->app->make('wordpress.widgets')->init(Collection::make(

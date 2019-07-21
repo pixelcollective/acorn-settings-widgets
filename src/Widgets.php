@@ -9,7 +9,6 @@ use function \unregister_widget;
 
 // Illuminate framework
 use \Illuminate\Support\Collection;
-use \Illuminate\Support\Facades\View;
 
 // Roots
 use \Roots\Acorn\Application;
@@ -70,18 +69,20 @@ class Widgets
     /**
      * Processes widgets which should be removed from the configuration file
      *
-     * @param \Illuminate\Support\Collection  $defaultWidgets
-     * @return \Illuminate\Support\Collection $defaultWidgets
+     * @param  \Illuminate\Support\Collection $widgets
+     * @return \Illuminate\Support\Collection $widgets
      */
-    public function processWidgets(Collection $defaultWidgets)
+    public function processWidgets(Collection $widgets)
     {
-        $defaultWidgets = $defaultWidgets->each(function ($widgetStatus, $widgetName) use ($defaultWidgets) {
+        $disabledWidgets = Collection::make();
+
+        $widgets->each(function ($widgetStatus, $widgetName) use ($disabledWidgets) {
             if ($widgetStatus == false) {
-                return $defaultWidgets->pluck($widgetName);
+                $disabledWidgets->push($widgetName);
             }
         });
 
-        return $defaultWidgets;
+        return $disabledWidgets;
     }
 
     /**
@@ -91,7 +92,7 @@ class Widgets
      */
     public function removeWidgets()
     {
-        $this->disabledWidgets->each(function ($enabled, $widget) {
+        $this->disabledWidgets->each(function ($widget) {
             unregister_widget($this->widgetIds[$widget]);
         });
     }
